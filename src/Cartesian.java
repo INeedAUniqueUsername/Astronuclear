@@ -17,8 +17,20 @@ public interface Cartesian {
 	public default double angle() {
 		return Math.atan2(y(), x());
 	}
+	public default XY sum(Cartesian c) {
+		return new XY(x() + c.x(), y() + c.y());
+	}
 	public default XY difference(Cartesian c) {
 		return new XY(x() - c.x(), y() - c.y());
+	}
+	public default XY product(double scalar) {
+		return new XY(x() * scalar, y() * scalar);
+	}
+	public default void rotate(double theta) {
+		double angle = angle() + theta;
+		double distance = magnitude();
+		x(distance * Math.cos(angle));
+		y(distance * Math.sin(angle));
 	}
 	public default XY polarOffset(double angle, double magnitude) {
 		return new XY(x() + magnitude * Math.cos(angle), y() + magnitude * Math.sin(angle));

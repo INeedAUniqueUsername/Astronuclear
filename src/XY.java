@@ -7,10 +7,10 @@ public class XY implements Cartesian {
 		y(y);
 	}
 	//Adds multiple
-	public XY(XY... xys) {
+	public XY(Cartesian... cs) {
 		this(0, 0);
-		for(XY xy : xys) {
-			inc(xy);
+		for(Cartesian c : cs) {
+			inc(c);
 		}
 	}
 	public void x(double x) { this.x = x; }

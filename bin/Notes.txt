@@ -1,0 +1,9 @@
+-SpaceObject
+--Body
+---Star
+---Planet
+---Asteroid
+--Station
+---Shipyard
+--Ship
+--Missile

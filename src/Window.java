@@ -17,12 +17,11 @@ import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
+import main.Constants;
+
 public class Window {
 	public static final int SCREEN_WIDTH;
 	public static final int SCREEN_HEIGHT;
-
-	public static final int GAME_WIDTH = 6000 + (int) (Math.random() * 300);
-	public static final int GAME_HEIGHT = 4000 + (int) (Math.random() * 2000);
 
 	static {
 		
@@ -45,7 +44,7 @@ public class Window {
 
 	public static final int SCREEN_CENTER_X = SCREEN_WIDTH / 2;
 	public static final int SCREEN_CENTER_Y = SCREEN_HEIGHT / 2;
-	public static final Point SCREEN_CENTER = new Point(SCREEN_CENTER_X, SCREEN_CENTER_Y);
+	public static final XY SCREEN_CENTER = new XY(Window.SCREEN_CENTER_X, Window.SCREEN_CENTER_Y);
 	
 	private JFrame frame;
 

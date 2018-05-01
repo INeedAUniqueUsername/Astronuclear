@@ -6,17 +6,25 @@ import java.awt.Graphics2D;
 2a1-*3b*+
  */
 public abstract class SpaceObject {
-	protected XYR pos, vel;
+	XYR pos, vel;
 	public SpaceObject() {
-		pos = new XYR();
-		vel = new XYR();
+		pos(new XYR());
+		vel(new XYR());
 	}
-	public XYR pos() {
-		return pos;
+	public SpaceObject(XYR pos) {
+		this();
+		pos(pos);
+		
 	}
-	public XYR vel() {
-		return vel;
+	public SpaceObject(XYR pos, XYR vel) {
+		this();
+		pos(pos);
+		vel(vel);
 	}
+	public XYR pos()			{ return pos; }
+	public void pos(XYR pos)	{ this.pos = pos; }
+	public XYR vel() 			{ return vel; }
+	public void vel(XYR vel)	{ this.vel = vel; }
 	public void update() {
 		pos.inc(vel);
 	}
