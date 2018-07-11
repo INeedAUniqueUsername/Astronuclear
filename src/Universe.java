@@ -14,7 +14,7 @@ public class Universe {
 	int MAX_MARKERS = 1000;
 	public Universe() { 
 		objects = new ArrayList<>();
-		markers = new ArrayList<XY>();
+		markers = new ArrayList<>();
 		create = new ArrayList<>();
 		destroy = new ArrayList<>();
 	}
@@ -26,6 +26,9 @@ public class Universe {
 	}
 	public List<XY> getMarkers() {
 		return markers;
+	}
+	private void addObjects(SpaceObject... o) {
+		objects.addAll(Arrays.asList(o));
 	}
 	public void createObjects(SpaceObject... o) {
 		create.addAll(Arrays.asList(o));
@@ -56,5 +59,16 @@ public class Universe {
 		*/
 		g2D.setColor(Color.WHITE);
 		markers.forEach(m -> g2D.drawLine((int) m.x(), (int) m.y(), (int) m.x(), (int) m.y()));
+	}
+	public Universe createParallel() {
+		Universe parallel = new Universe();
+		List<SpaceObject> objects = new ArrayList<>();
+		objects.addAll(create);
+		objects.addAll(this.objects);
+		objects.forEach(o -> {
+			SpaceObject clone = o.parallel(parallel);
+			parallel.addObjects(clone);
+		});
+		return parallel;
 	}
 }

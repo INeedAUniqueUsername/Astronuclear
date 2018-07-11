@@ -34,7 +34,8 @@ public class XYR implements Cartesian {
 		r(xyr.r);
 	}
 	public void inc(XYR xyr) {
-		Cartesian.super.inc(xyr);
+		incX(xyr.x);
+		incY(xyr.y);
 		incR(xyr.r);
 	}
 	

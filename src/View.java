@@ -157,6 +157,21 @@ public class View extends JPanel implements KeyListener, MouseListener {
 		tick++;
 		universe.update();
 		updatePOV();
+		/*
+ 		if(pov_object != null) {
+			/*
+			Universe parallel = universe.createParallel();
+			SpaceObject pov_parallel = parallel.getObjects().get(universe.getObjects().indexOf(pov_object));
+			*//*
+ 			Universe parallel = new Universe();
+ 			SpaceObject pov_parallel = pov_object.parallel(parallel);
+ 			parallel.createObjects(sun.parallel(parallel), pov_parallel);
+			for(int i = 0; i < 100; i++) {
+				parallel.update();
+				universe.addMarkers(new XY(pov_parallel.pos()));
+			}
+		}
+		*/
 	}
 	public void updatePOV() {
 		boolean pov_decel = true;

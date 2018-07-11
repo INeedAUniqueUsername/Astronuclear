@@ -152,7 +152,7 @@ public class Window {
 		//frame.setDefaultCloseOperation(DEMO ? JFrame.DO_NOTHING_ON_CLOSE : JFrame.EXIT_ON_CLOSE);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		frame.setTitle("Orbitals");
+		frame.setTitle("Astro");
 		frame.requestFocus();
 		frame.setVisible(true);
 	}

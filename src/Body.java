@@ -10,8 +10,6 @@ public class Body extends SpaceObject {
 	private double radius;
 	private double mass;
 	
-	private List<Body> pulled;
-	
 	public double getRadius() { return radius; }
 	public double getMass() { return mass; }
 	public Body(Universe universe, double radius, double mass) {
@@ -19,14 +17,18 @@ public class Body extends SpaceObject {
 		this.universe = universe;
 		this.radius = radius;
 		this.mass = mass;
-		pulled = new ArrayList<Body>();
 	}
 	public Body(Universe universe, double radius, double mass, XYR pos) {
 		super(pos);
 		this.universe = universe;
 		this.radius = radius;
 		this.mass = mass;
-		pulled = new ArrayList<Body>();
+	}
+	public Body(Body source) {
+		super(source);
+		this.universe = source.universe;
+		this.radius = source.radius;
+		this.mass = source.mass;
 	}
 	public void initializeOrbits() {
 		List<SpaceObject> objects = new ArrayList<>(universe.getObjects());
@@ -41,6 +43,12 @@ public class Body extends SpaceObject {
 				double angle = posDifference.angle() + Math.PI/2;
 				double speed = Math.sqrt(Constants.GRAVITATIONAL * b.getMass() / distance) * INITIAL_SPEED_ADJUST * Constants.Time.MULTIPLIER;
 				System.out.println("Speed: " + speed);
+				if(Double.isNaN(speed)) {
+					System.out.println("Pos: " + pos.x() + ", " + pos.y());
+					System.out.println("Difference: " + posDifference.x() + ", " + posDifference.y());
+					System.out.println("Distance: " + distance);
+					System.exit(0);
+				}
 				vel.inc(new XY().polarOffset(angle, speed));
 			}
 		}
@@ -48,7 +56,6 @@ public class Body extends SpaceObject {
 	public void update() {
 		List<SpaceObject> objects = new ArrayList<>(universe.getObjects());
 		objects.remove(this);
-		pulled.clear();
 		for(SpaceObject o : objects) {
 			if(o instanceof Body) {
 				Body b = (Body) o;
@@ -58,16 +65,20 @@ public class Body extends SpaceObject {
 				double acceleration = Constants.GRAVITATIONAL * mass / (distance * distance) * Constants.Time.MULTIPLIER * Constants.Time.MULTIPLIER;
 				//System.out.println("Acceleration: " + acceleration);
 				b.vel().inc(new XY(acceleration * Math.cos(angle), acceleration * Math.sin(angle)));
-				if(acceleration > 0.1) {
-					pulled.add(b);
-				}
 			}
 		}
 		super.update();
-		universe.addMarkers(new XY(pos));
 	}
 	public void paint(Graphics2D g2d) {
 		g2d.setColor(Color.WHITE);
 		g2d.drawOval((int) (pos.x() - radius), (int) (pos.y() - radius), (int) (radius*2), (int) (radius*2));
+	}
+	public Body clone() {
+		return new Body(this);
+	}
+	public Body parallel(Universe universe) {
+		Body clone = new Body(this);
+		clone.universe = universe;
+		return clone;
 	}
 }
